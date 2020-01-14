@@ -1,7 +1,5 @@
 package org.opp.ui;
 
-import org.opp.dao.CustomerDao;
-import org.opp.factory.BeanFactory;
 import org.opp.service.CustomerService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -16,16 +14,30 @@ public class Client {
 
 //    spring配置
     public static void main(String[] args){
+
+        /**
+         * 延迟创建bean对象
+         **/
+//        DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
+//        XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(defaultListableBeanFactory);
+//        Resource resource = new ClassPathResource("bean.xml");
+//        xmlBeanDefinitionReader.loadBeanDefinitions(resource);
+//        CustomerService service = (CustomerService) defaultListableBeanFactory.getBean("customerService");
+
+        /**
+         * 立即创建bean对象
+         **/
         ApplicationContext context = new ClassPathXmlApplicationContext("bean.xml");
 
-        CustomerService service = (CustomerService) context.getBean("customerService");
-        CustomerDao dao = (CustomerDao) context.getBean("customerDao");
+        /* 调用默认无参构造函数创建 */
+//        CustomerService service = (CustomerService) context.getBean("customerService");
 
-        print(service);
-        print(dao);
-    }
+        /* 使用静态工厂中的方法创建 */
+//        CustomerService service = (CustomerService) context.getBean("staticService");
 
-    public static void print(Object o){
-        System.out.println(o);
+        /* 使用实例工厂中的方法创建 */
+        CustomerService service = (CustomerService) context.getBean("instanceService");
+
+        service.saveCustomer();
     }
 }

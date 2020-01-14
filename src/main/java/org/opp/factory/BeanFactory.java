@@ -1,8 +1,8 @@
 package org.opp.factory;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 public class BeanFactory {
 //    public static CustomerService getCustomerService() {
@@ -46,21 +46,21 @@ public class BeanFactory {
 
     private static Map<String, Object> beans = new HashMap<String, Object>();
 
-    static {
-        Enumeration<String> keys = bundle.getKeys();
-        while (keys.hasMoreElements()) {
-
-            try {
-                String key = keys.nextElement();
-                String path = bundle.getString(key);
-                Object bean = Class.forName(path).newInstance();
-                beans.put(key, bean);
-            } catch (Exception e) {
-                throw new ExceptionInInitializerError("创建容器失败" + e);
-            }
-
-        }
-    }
+//    static {
+//        Enumeration<String> keys = bundle.getKeys();
+//        while (keys.hasMoreElements()) {
+//
+//            try {
+//                String key = keys.nextElement();
+//                String path = bundle.getString(key);
+//                Object bean = Class.forName(path).newInstance();
+//                beans.put(key, bean);
+//            } catch (Exception e) {
+//                throw new ExceptionInInitializerError("创建容器失败" + e);
+//            }
+//
+//        }
+//    }
 
     public static Object getBean(String beanName) {
         return beans.get(beanName);

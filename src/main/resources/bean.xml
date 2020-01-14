@@ -3,8 +3,16 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="customerDao" class="org.opp.dao.impl.CustomerDaoImpl"/>
+
+    <!-- 调用默认无参构造函数创建 -->
     <bean id="customerService" class="org.opp.service.impl.CustomerServiceImpl"/>
 
-    <bean id="customerDao" class="org.opp.dao.impl.CustomerDaoImpl"/>
+    <!-- 使用静态工厂中的方法创建 -->
+    <bean id="staticService" class="org.opp.factory.StaticFactory" factory-method="getServiceInstance"/>
+
+    <!-- 使用实例工厂中的方法创建 -->
+    <bean id="instanceFactory" class="org.opp.factory.InstanceFactory"/>
+    <bean id="instanceService" factory-bean="instanceFactory" factory-method="getServiceInstance"/>
 
 </beans>
