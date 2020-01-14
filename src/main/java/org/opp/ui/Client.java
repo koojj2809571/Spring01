@@ -1,6 +1,7 @@
 package org.opp.ui;
 
 import org.opp.service.CustomerService;
+import org.opp.util.CommonUtil;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -36,8 +37,13 @@ public class Client {
 //        CustomerService service = (CustomerService) context.getBean("staticService");
 
         /* 使用实例工厂中的方法创建 */
-        CustomerService service = (CustomerService) context.getBean("instanceService");
+//        CustomerService service = (CustomerService) context.getBean("instanceService");
+
+        CustomerService service = (CustomerService) context.getBean("customerService");
+        CustomerService test = (CustomerService) context.getBean("testService");
 
         service.saveCustomer();
+        CommonUtil.print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        test.saveCustomer();
     }
 }

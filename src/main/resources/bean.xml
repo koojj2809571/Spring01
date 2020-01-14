@@ -3,16 +3,92 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="customerDao" class="org.opp.dao.impl.CustomerDaoImpl"/>
+  <!--    <bean id="customerDao" class="org.opp.dao.impl.CustomerDaoImpl"/>-->
 
-    <!-- 调用默认无参构造函数创建 -->
-    <bean id="customerService" class="org.opp.service.impl.CustomerServiceImpl"/>
+  <!-- 调用默认无参构造函数创建 -->
+  <!--    <bean id="customerService" class="org.opp.service.impl.CustomerServiceImpl"/>-->
 
-    <!-- 使用静态工厂中的方法创建 -->
-    <bean id="staticService" class="org.opp.factory.StaticFactory" factory-method="getServiceInstance"/>
+  <!-- 使用静态工厂中的方法创建 -->
+  <!--    <bean id="staticService" class="org.opp.factory.StaticFactory" factory-method="getServiceInstance"/>-->
 
-    <!-- 使用实例工厂中的方法创建 -->
-    <bean id="instanceFactory" class="org.opp.factory.InstanceFactory"/>
-    <bean id="instanceService" factory-bean="instanceFactory" factory-method="getServiceInstance"/>
+  <!-- 使用实例工厂中的方法创建 -->
+  <!--    <bean id="instanceFactory" class="org.opp.factory.InstanceFactory"/>-->
+  <!--    <bean id="instanceService" factory-bean="instanceFactory" factory-method="getServiceInstance"/>-->
 
+  <!--  <bean-->
+  <!--      id="customerService"-->
+  <!--      class="org.opp.service.impl.CustomerServiceImpl"-->
+  <!--      scope="prototype"-->
+  <!--      init-method="init"-->
+  <!--      destroy-method="destroy"-->
+  <!--  />-->
+
+  <!--  spring的依赖注入-->
+
+  <bean id="now" class="java.util.Date"/>
+  <bean id="customerDao" class="org.opp.dao.impl.CustomerDaoImpl"/>
+
+  <!--  1.构造函数注入-->
+  <!--  <bean id="customerService" class="org.opp.service.impl.CustomerServiceImpl">-->
+  <!--    <constructor-arg name="driver" value="com.mysql.jdbc.Driver"/>-->
+  <!--    <constructor-arg name="port" value="3306"/>-->
+  <!--    <constructor-arg name="today" ref="now"/>-->
+  <!--    <constructor-arg name="dao" ref="customerDao"/>-->
+  <!--  </bean>-->
+
+  <!--  2.set方法注入-->
+  <bean id="customerService" class="org.opp.service.impl.CustomerServiceImpl">
+    <property name="driver" value="com.mysql.jdbc.Driver"/>
+    <property name="port" value="3306"/>
+    <property name="today" ref="now"/>
+    <property name="dao" ref="customerDao"/>
+  </bean>
+
+  <!--  3.复杂类型注入-->
+  <bean id="testService" class="org.opp.service.impl.TestServiceImpl">
+    <property name="myStrArr">
+      <array>
+        <value>AAAA</value>
+        <value>BBBB</value>
+        <value>CCCC</value>
+        <value>DDDD</value>
+        <value>EEEE</value>
+        <value>FFFF</value>
+      </array>
+    </property>
+    <property name="myList">
+      <list>
+        <value>AAAA</value>
+        <value>BBBB</value>
+        <value>CCCC</value>
+        <value>DDDD</value>
+        <value>EEEE</value>
+        <value>FFFF</value>
+      </list>
+    </property>
+    <property name="mySet">
+      <list>
+        <value>AAAA</value>
+        <value>BBBB</value>
+        <value>CCCC</value>
+        <value>DDDD</value>
+        <value>EEEE</value>
+        <value>FFFF</value>
+      </list>
+    </property>
+    <property name="myMap">
+      <map>
+        <entry key="testA" value="AAAA"/>
+        <entry key="testB" value="BBBB"/>
+        <entry key="testC" value="CCCC"/>
+        <entry key="testD" value="DDDD"/>
+      </map>
+    </property>
+    <property name="myProps">
+      <props>
+        <prop key="TestE">EEEE</prop>
+        <prop key="TestF">FFFF</prop>
+      </props>
+    </property>
+  </bean>
 </beans>
